@@ -1,47 +1,66 @@
-// main.go
+// backend/main.go
 package main
 
 import (
 	"log"
+	"net/http"
 	"os"
-	"path/filepath"
 
 	"github.com/labstack/echo/v5"
 	"github.com/pocketbase/pocketbase"
 	"github.com/pocketbase/pocketbase/core"
 )
 
+type Config struct {
+	ViteDevServerURL string
+	FrontendURL      string
+	Environment      string
+	Port             string
+}
+
+func loadConfig() Config {
+	config := Config{
+		ViteDevServerURL: "http://localhost:5173",
+		FrontendURL:      "http://localhost:8090",
+		Environment:      "development",
+		Port:             "8090",
+	}
+
+	if env := os.Getenv("GO_ENV"); env != "" {
+		config.Environment = env
+	}
+
+	if url := os.Getenv("VITE_DEV_URL"); url != "" {
+		config.ViteDevServerURL = url
+	}
+
+	if url := os.Getenv("FRONTEND_URL"); url != "" {
+		config.FrontendURL = url
+	}
+
+	if port := os.Getenv("PORT"); port != "" {
+		config.Port = port
+	}
+
+	return config
+}
+
 func main() {
+	config := loadConfig()
+
 	app := pocketbase.New()
 
-	// Add before start hook to serve the static files in production
-	// and proxy to Vite dev server in development
+	// Set up routes and initialize collections
 	app.OnBeforeServe().Add(func(e *core.ServeEvent) error {
-		// Get the current environment
-		env := os.Getenv("GO_ENV")
 
-		if env == "development" {
-			// In development, proxy requests to the Vite dev server
-			e.Router.GET("/*", func(c echo.Context) error {
-				// Skip API routes
-				if len(c.Request().URL.Path) >= 4 && c.Request().URL.Path[:4] == "/api" {
-					return nil
-				}
-				proxyURL := "http://localhost:5173" + c.Request().RequestURI
-				return c.Redirect(302, proxyURL)
+		e.Router.GET("/health", func(c echo.Context) error {
+			return c.JSON(http.StatusOK, map[string]string{
+				"status": "healthy",
 			})
-		} else {
-			// In production, serve the static files
-			staticDir := filepath.Join(os.Args[0], "../dist")
-			fsys := os.DirFS(staticDir)
-			fileHandler := echo.StaticDirectoryHandler(fsys, false)
-			e.Router.GET("/*", func(c echo.Context) error {
-				// Skip API routes
-				if len(c.Request().URL.Path) >= 4 && c.Request().URL.Path[:4] == "/api" {
-					return nil
-				}
-				return fileHandler(c)
-			})
+		})
+
+		if err := setupRoutes(e.Router, config); err != nil {
+			log.Fatal(err)
 		}
 
 		return nil
