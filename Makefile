@@ -6,16 +6,14 @@
 init: setup-env
 	@echo "Installing frontend dependencies..."
 	cd frontend && pnpm install
-	@echo "Installing air..."
-	go install github.com/air-verse/air@latest
 	@echo "Installing backend dependencies..."
-	cd backend && go mod tidy
+	go mod tidy
 
 # Set up environment files
 setup-env:
 	@if [ ! -f backend/.env ]; then \
-		cp backend/.env.example backend/.env; \
-		echo "Created backend/.env"; \
+		cp .env.example .env; \
+		echo "Created .env"; \
 	fi
 	@if [ ! -f frontend/.env ]; then \
 		cp frontend/.env.example frontend/.env; \
@@ -31,7 +29,7 @@ dev-frontend:
 	cd frontend && node --run dev
 
 dev-backend:
-	cd backend && air
+	go run . serve
 
 # Build for production
 build:
