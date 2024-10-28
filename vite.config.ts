@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react-swc'
 import { defineConfig, loadEnv } from 'vite'
 import topLevelAwait from 'vite-plugin-top-level-await'
 import wasm from 'vite-plugin-wasm'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd(), '')
@@ -11,10 +12,16 @@ export default defineConfig(({ mode }) => {
 	const backendUrl = env.VITE_BACKEND_URL || 'http://localhost:8090'
 
 	return {
-		plugins: [TanStackRouterVite({
-      routesDirectory: 'frontend/routes',
-      generatedRouteTree: 'frontend/routeTree.gen.ts'
-    }), wasm(), topLevelAwait(), react()],
+		plugins: [
+			tsconfigPaths(),
+			TanStackRouterVite({
+				routesDirectory: 'frontend/routes',
+				generatedRouteTree: 'frontend/routeTree.gen.ts',
+			}),
+			wasm(),
+			topLevelAwait(),
+			react(),
+		],
 		build: {
 			outDir: './dist',
 			emptyOutDir: true,

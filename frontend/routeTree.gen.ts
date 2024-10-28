@@ -12,7 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
-import { Route as SnippetsIndexImport } from './routes/snippets/index'
+import { Route as NotesIndexImport } from './routes/notes/index'
 
 // Create/Update Routes
 
@@ -22,9 +22,9 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const SnippetsIndexRoute = SnippetsIndexImport.update({
-  id: '/snippets/',
-  path: '/snippets/',
+const NotesIndexRoute = NotesIndexImport.update({
+  id: '/notes/',
+  path: '/notes/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,11 +39,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/snippets/': {
-      id: '/snippets/'
-      path: '/snippets'
-      fullPath: '/snippets'
-      preLoaderRoute: typeof SnippetsIndexImport
+    '/notes/': {
+      id: '/notes/'
+      path: '/notes'
+      fullPath: '/notes'
+      preLoaderRoute: typeof NotesIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -53,37 +53,37 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/snippets': typeof SnippetsIndexRoute
+  '/notes': typeof NotesIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/snippets': typeof SnippetsIndexRoute
+  '/notes': typeof NotesIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/snippets/': typeof SnippetsIndexRoute
+  '/notes/': typeof NotesIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/snippets'
+  fullPaths: '/' | '/notes'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/snippets'
-  id: '__root__' | '/' | '/snippets/'
+  to: '/' | '/notes'
+  id: '__root__' | '/' | '/notes/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  SnippetsIndexRoute: typeof SnippetsIndexRoute
+  NotesIndexRoute: typeof NotesIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  SnippetsIndexRoute: SnippetsIndexRoute,
+  NotesIndexRoute: NotesIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -99,14 +99,14 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/snippets/"
+        "/notes/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/snippets/": {
-      "filePath": "snippets/index.tsx"
+    "/notes/": {
+      "filePath": "notes/index.tsx"
     }
   }
 }

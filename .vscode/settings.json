@@ -13,5 +13,8 @@
   "editor.codeActionsOnSave": {
     "quickfix.biome": "explicit",
     "source.organizeImports.biome": "explicit"
+  },
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "file:///Users/grebonato/Code/pocket-react/.github/workflows.yml"
   }
 }

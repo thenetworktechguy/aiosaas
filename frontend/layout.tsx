@@ -28,7 +28,7 @@ export function Layout({
 					<div className='hidden flex-none lg:block'>
 						<ul className='menu menu-horizontal'>
 							<li>
-								<Link to='/snippets'>Notes</Link>
+								<Link to='/notes'>Notes</Link>
 							</li>
 						</ul>
 					</div>
