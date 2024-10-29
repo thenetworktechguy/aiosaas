@@ -44,7 +44,7 @@ export function Layout({
 				<ul className='menu bg-base-200 min-h-full w-80 p-4'>
 					{/* Sidebar content here */}
 					<li>
-						<Link to='/snippets'>Snippets</Link>
+						<Link to='/notes'>Snippets</Link>
 					</li>
 				</ul>
 			</div>

@@ -1,0 +1,15 @@
+# litefs.yml
+fuse:
+  dir: "/pb_data"
+
+data:
+  dir: "/var/lib/litefs"
+
+exec:
+  - cmd: pocket-react serve --http=0.0.0.0:8090
+    if: primary
+
+proxy:
+  addr: ":8090"
+  target: "localhost:8090"
+  db: "/pb_data/data.db"

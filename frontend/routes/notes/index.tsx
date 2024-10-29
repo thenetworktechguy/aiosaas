@@ -2,9 +2,11 @@ import { usePocketBase } from '@/use-pocketbase'
 import { Editor } from '@monaco-editor/react'
 import { useQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
+import { createRef } from 'react'
 
 export const Route = createFileRoute('/notes/')({
 	component() {
+		const dialogRef = createRef<HTMLDialogElement>()
 		const pb = usePocketBase()
 		const snippets = useQuery({
 			queryKey: ['notes'],
@@ -20,9 +22,9 @@ export const Route = createFileRoute('/notes/')({
 						className='btn btn-primary'
 						type='button'
 						onClick={() => {
-							document
-								.getElementById<HTMLDialogElement>('my_modal_3')
-								.showModal()
+							if (dialogRef.current) {
+								dialogRef.current.showModal()
+							}
 						}}
 					>
 						Create
@@ -34,7 +36,7 @@ export const Route = createFileRoute('/notes/')({
 				<div className='col-span-4'>
 					<Editor height={`50vh`} theme='vs-dark' language='markdown' />
 				</div>
-				<dialog id='my_modal_3' className='modal'>
+				<dialog id='my_modal_3' className='modal' ref={dialogRef}>
 					<div className='modal-box'>
 						<form method='dialog'>
 							{/* biome-ignore lint/a11y/useButtonType: <explanation> */}

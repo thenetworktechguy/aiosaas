@@ -31,7 +31,6 @@ func main() {
 			})
 		})
 
-		// Use appropriate function based on build tag
 		ServeViteAssets(e.Router)
 
 		return nil
