@@ -1,8 +1,3 @@
-# fly.toml app configuration file generated for pocket-react on 2024-10-28T10:01:48+01:00
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
 app = 'pocket-react'
 primary_region = 'arn'
 
@@ -25,3 +20,7 @@ primary_region = 'arn'
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
+
+[[regions]]
+  name = "arn"
+  primary = true
