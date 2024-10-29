@@ -31,8 +31,7 @@ COPY --from=flyio/litefs:0.5 /usr/local/bin/litefs /usr/local/bin/litefs
 COPY litefs.yml /etc/litefs.yml
 
 # Create necessary directories for FUSE and set permissions
-RUN mkdir -p /litefs /var/lib/litefs && \
-    chown node:node /litefs /var/lib/litefs
+RUN mkdir -p /litefs /var/lib/litefs
 
 EXPOSE 8090
 
