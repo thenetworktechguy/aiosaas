@@ -24,7 +24,7 @@ FROM alpine:latest
 COPY --from=builder-golang /app/pocket-react /usr/local/bin/pocket-react
 
 # Install LiteFS
-RUN apt-get update && apt-get install -y ca-certificates fuse3 sqlite3
+RUN apk add --no-cache ca-certificates fuse3 sqlite
 
 COPY --from=flyio/litefs:0.5 /usr/local/bin/litefs /usr/local/bin/litefs
 # Copy LiteFS config
