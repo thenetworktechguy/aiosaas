@@ -6,10 +6,10 @@
 app = 'pocket-react'
 primary_region = 'arn'
 
-[mounts]
-  source = "litefs"
-  destination = "/pb_data"
-  
+[[mounts]]
+  source = 'litefs'
+  destination = '/var/lib/litefs'
+
 [env]
   SQLITE_PATH = "/pb_data/data.db"
 
