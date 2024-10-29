@@ -3,3 +3,4 @@ tmp/
 pb_data/
 .env
 ./pocket-react
+dist/
