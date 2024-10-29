@@ -13,3 +13,9 @@ proxy:
   addr: ":8090"
   target: "localhost:8090"
   db: "/pb_data/data.db"
+
+lease:
+  type: "consul"
+  consul:
+    url: "${FLY_CONSUL_URL}"
+    key: "pocket-react/leader"
