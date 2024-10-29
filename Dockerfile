@@ -24,6 +24,15 @@ FROM alpine:latest
 # Copy the built executable from builder stage
 COPY --from=builder-golang /app/pocket-react /usr/local/bin/pocket-react
 
+COPY --from=flyio/litefs:0.5 /usr/local/bin/litefs /usr/local/bin/litefs
+
+# Copy LiteFS config
+COPY litefs.yml /etc/litefs.yml
+
+# Create necessary directories for FUSE and set permissions
+RUN mkdir -p /pb_data /var/lib/litefs && \
+    chown node:node /pb_data /var/lib/litefs
+
 EXPOSE 8090
 
 CMD ["pocket-react", "serve", "--http=0.0.0.0:8090"]
