@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@automerge/automerge':
-        specifier: ^2.2.8
-        version: 2.2.8
       '@heroicons/react':
         specifier: ^2.1.5
         version: 2.1.5(react@18.3.1)
@@ -106,9 +103,6 @@ packages:
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
-
-  '@automerge/automerge@2.2.8':
-    resolution: {integrity: sha512-kP6Z9lIkNeIGe/jhF8SUQAgUMwVjtXCBL0eZEgQGCoWvPNTPcg8fnQco28XkYBrfkkuqiEUAbdHhJmSp0y79ug==}
 
   '@babel/code-frame@7.26.0':
     resolution: {integrity: sha512-INCKxTtbXtcNbUZ3YXutwMpEleqttcswhAdee7dhuoVrD2cnuc3PqtERBtxkX5nziX9vnBL8WXmSGwv8CuPV6g==}
@@ -2231,10 +2225,6 @@ packages:
     resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
     hasBin: true
 
-  uuid@9.0.1:
-    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
-    hasBin: true
-
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
 
@@ -2348,10 +2338,6 @@ snapshots:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
-
-  '@automerge/automerge@2.2.8':
-    dependencies:
-      uuid: 9.0.1
 
   '@babel/code-frame@7.26.0':
     dependencies:
@@ -4566,8 +4552,6 @@ snapshots:
   util-deprecate@1.0.2: {}
 
   uuid@10.0.0: {}
-
-  uuid@9.0.1: {}
 
   validate-npm-package-license@3.0.4:
     dependencies:
