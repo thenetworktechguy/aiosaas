@@ -5,6 +5,10 @@ fuse:
 data:
   dir: "/var/lib/litefs"
 
+lease:
+  type: "static"
+  candidate: true
+
 exec:
   - cmd: pocket-react serve --http=0.0.0.0:8090 --dir=/litefs/
 
