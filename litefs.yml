@@ -1,21 +1,14 @@
 # litefs.yml
 fuse:
-  dir: "/pb_data"
+  dir: "/var/lib/litefs"
 
 data:
   dir: "/var/lib/litefs"
 
 exec:
-  - cmd: pocket-react serve --http=0.0.0.0:8090 --dir=/litefs/
-    if: primary
+  - cmd: pocket-react serve --http=0.0.0.0:8090 --dir=/litefs/data/
 
 proxy:
   addr: ":8090"
-  target: "localhost:8090"
-  db: "/pb_data/data.db"
-
-lease:
-  type: "consul"
-  consul:
-    url: "${FLY_CONSUL_URL}"
-    key: "pocket-react/leader"
+  target: "localhost:8091"
+  db: "/var/lib/litefs/data/data.db"

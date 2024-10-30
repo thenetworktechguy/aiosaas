@@ -1,15 +1,19 @@
+# fly.toml app configuration file generated for pocket-react on 2024-10-29T20:34:50+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
 app = 'pocket-react'
 primary_region = 'arn'
+
+[build]
 
 [[mounts]]
   source = 'litefs'
   destination = '/var/lib/litefs'
 
-[env]
-  SQLITE_PATH = "/pb_data/data.db"
-
 [http_service]
-  internal_port = 8080
+  internal_port = 8090
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
@@ -20,7 +24,3 @@ primary_region = 'arn'
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
-
-[[regions]]
-  name = "arn"
-  primary = true
