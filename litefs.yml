@@ -11,8 +11,3 @@ lease:
 
 exec:
   - cmd: pocket-react serve --http=0.0.0.0:8090 --dir=/litefs/
-
-proxy:
-  addr: ":8090"
-  target: "localhost:8091"
-  db: "/var/lib/litefs/data/data.db"
