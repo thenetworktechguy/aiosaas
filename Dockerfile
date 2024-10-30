@@ -23,16 +23,12 @@ FROM alpine:latest
 # Copy the built executable from builder stage
 COPY --from=builder-golang /app/pocket-react /usr/local/bin/pocket-react
 
-# Install LiteFS
-RUN apk add --no-cache ca-certificates fuse3 sqlite
+# uncomment to copy the local pb_migrations dir into the container
+COPY ./pb_migrations /pb/pb_migrations
 
-COPY --from=flyio/litefs:0.5 /usr/local/bin/litefs /usr/local/bin/litefs
-# Copy LiteFS config
-COPY litefs.yml /etc/litefs.yml
-
-# Create necessary directories for FUSE and set permissions
-RUN mkdir -p /litefs /var/lib/litefs
+# uncomment to copy the local pb_hooks dir into the container
+# COPY ./pb_hooks /pb/pb_hooks
 
 EXPOSE 8090
 
-CMD litefs mount
+CMD ["pocket-react", "serve", "--http=0.0.0.0:8090"]

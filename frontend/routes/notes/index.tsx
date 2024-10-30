@@ -11,7 +11,7 @@ export const Route = createFileRoute('/notes/')({
 		const snippets = useQuery({
 			queryKey: ['notes'],
 			queryFn() {
-				return pb.collection('snippets').getFullList()
+				return pb.collection('notes').getFullList()
 			},
 		})
 

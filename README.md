@@ -96,10 +96,9 @@ This will start:
 2. The Vite development server
 3. Type generation in watch mode
 
-## For LiteFS
+## Deployment to Fly.io
 
-1. create the volume `fly volumes create litefs --size 1`
-2. fulfill mounts defined in fly.toml `fly volumes create litefs -r arn -n 2`
+[Follow this guide](https://github.com/pocketbase/pocketbase/discussions/537)
 
 ## 📚 Additional Resources
 
