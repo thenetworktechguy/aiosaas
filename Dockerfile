@@ -33,4 +33,4 @@ COPY ./pb_migrations ./pb_migrations
 
 EXPOSE 8090
 
-CMD ["pocket-react", "serve", "--http=0.0.0.0:8090"]
+CMD ["pocket-react", "serve", "--http=0.0.0.0:8090", "--dir=/pb/pb_data"]
