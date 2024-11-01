@@ -32,5 +32,7 @@ COPY --from=builder-golang /app/pocket-react /pb/pocket-react
 # COPY ./pb_hooks /pb/pb_hooks
 
 EXPOSE 8090
+RUN /pb/pocket-react migrate history-sync
+RUN /pb/pocket-react migrate up
 
 CMD ["/pb/pocket-react", "serve", "--http=0.0.0.0:8090"]

@@ -28,7 +28,7 @@ export const Route = createFileRoute('/notes/$noteId')({
 			<div className='w-full grid grid-cols-5'>
 				<div className='col-span-1 flex flex-col gap-2 p-2'>
 					<button
-						className='btn btn-primary pb-2'
+						className='btn btn-primary'
 						type='button'
 						onClick={() => {
 							if (dialogRef.current) {
