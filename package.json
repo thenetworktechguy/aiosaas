@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "run-p dev:*",
-    "dev:types": "while true; do pocketbase-typegen --db ./pb_data/data.db --url http://localhost:8090 --out frontend/pocketbase-types.ts --env; sleep 15; done",
+    "dev:types": "pocketbase-typegen --db ./pb_data/data.db --url http://localhost:8090 --out frontend/pocketbase-types.ts",
     "dev:client": "vite dev",
     "dev:server": "go run . serve",
     "build": "run-s build:*",

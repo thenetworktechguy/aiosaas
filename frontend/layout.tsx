@@ -33,7 +33,7 @@ export function Layout({
 						</ul>
 					</div>
 				</div>
-				{children}
+				<div className='p-2'>{children}</div>
 			</div>
 			<div className='drawer-side'>
 				<label
