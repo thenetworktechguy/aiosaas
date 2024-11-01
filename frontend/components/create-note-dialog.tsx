@@ -1,5 +1,5 @@
 import { usePocketBase } from '@/use-pocketbase'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
 import { type RefObject, forwardRef } from 'react'
 
@@ -9,6 +9,7 @@ export const CreateNoteDialog = forwardRef<
 		inputTitleRef: RefObject<HTMLInputElement>
 	}
 >((props, dialogRef) => {
+	const queryClient = useQueryClient()
 	const pb = usePocketBase()
 	const navigate = useNavigate()
 	const createNotes = useMutation({
@@ -17,6 +18,7 @@ export const CreateNoteDialog = forwardRef<
 		},
 		onSuccess(data) {
 			if (dialogRef && typeof dialogRef !== 'function') {
+				queryClient.invalidateQueries({ queryKey: ['notes'] })
 				dialogRef?.current?.close()
 			}
 
