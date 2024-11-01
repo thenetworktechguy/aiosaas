@@ -26,7 +26,7 @@ WORKDIR /app
 COPY --from=builder-golang /app/pocket-react /pb/pocket-react
 
 # uncomment to copy the local pb_migrations dir into the image
-COPY ./pb_migrations /pb/pb_migrations
+# COPY ./pb_migrations /pb/pb_migrations
 
 # uncomment to copy the local pb_hooks dir into the image
 # COPY ./pb_hooks /pb/pb_hooks
