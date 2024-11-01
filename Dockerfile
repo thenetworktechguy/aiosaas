@@ -33,4 +33,4 @@ COPY ./pb_migrations /pb/pb_migrations
 
 EXPOSE 8090
 
-CMD ["/pb/pocket-react", "serve", "--http=0.0.0.0:8090", "--automigrate"]
+CMD ["/pb/pocket-react", "serve", "--http=0.0.0.0:8090"]
