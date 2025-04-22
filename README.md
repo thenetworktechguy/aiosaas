@@ -1,20 +1,21 @@
-# PocketBase + React Single-Binary Project
+# Full Stack Single Binary | React + Material UI + Go + Pocketbase
 Ship your full-stack React application as a single executable!
 This project combines the power of PocketBase as a backend with a modern React frontend, all compiled into one easy-to-deploy binary.
 
 ## ✨ Features
-- **Single Binary Deployment**: Package your entire full-stack application into one executable
-- **Built-in Database**: PocketBase includes an embedded SQLite database
-- **Auto-generated TypeScript Types**: Automatic type generation from your database schema
-- **Modern React Frontend**: Built with Vite for blazing-fast development
+- **Single Binary Deployment**: `pnpm build` → `pocket-react` (≈28 MB) with API, admin UI, and pre‑rendered React assets embedded.
+- **Dashboard**: Permanent dark sidebar, top bar, responsive cards & tables (Material UI).
+- **Auth**: Email + password via PocketBase users. React login form ‑→ JWT cookie.
+- **Built for rapid development**: Hot‑reload Vite dev server, PocketBase auto‑reload, no Docker needed.
+- Copy binary + `public/` folder, run with `systemd`, reverse‑proxy via Nginx, HTTPS by Certbot.
 - **Type Safety**: Full TypeScript support throughout the stack
-- **Automated Migrations**: Database migrations are automatically applied during deployment
 
 ## 🚀 Getting Started
 ### Prerequisites
-- Node.js (v20 or higher)
-- Go (v1.18 or higher)
-- pnpm (recommended package manager)
+- Node 20 LTS + pnpm
+- Go (v1.24)
+- Ubuntu 24.04 LTS
+- `build-essential` `pkg-config` `libsqlite3-dev` (for one‑time SQLite build)
 
 ### Installation
 1. Clone the repository
@@ -23,83 +24,74 @@ This project combines the power of PocketBase as a backend with a modern React f
 pnpm install
 ```
 
-## 📝 Available Scripts
-- `pnpm dev` - Starts all development services concurrently:
-  - `dev:types` - Generates TypeScript types from your PocketBase schema
-  - `dev:client` - Starts the Vite development server for React
-  - `dev:server` - Runs the PocketBase server in development mode
-- `pnpm build` - Creates a production build:
-  - `build:client` - Builds the React frontend
-  - `build:server` - Compiles everything into a single binary named `pocket-react`
-- `pnpm format` - Formats code using Biome
-
 ## 🏗️ Project Structure
 ```
-.
-├── frontend/ # React frontend code
-├── pb_data/ # PocketBase data directory
-├── pb_migrations/ # Database migrations
-└── main.go # Go entry point
+├─ frontend/               # Vite root
+│  ├─ index.html           # title set here
+│  ├─ index.css
+│  ├─ main.tsx             # React Router
+│  └─ src/
+│     ├─ Login.tsx
+│     ├─ useAuth.ts
+│     ├─ lib/pb.ts
+│     └─ admin/
+│         ├─ AdminLayout.tsx
+│         └─ DashboardHome.tsx
+├─ public/                 # static files copied as‑is
+├─ dist/                   # vite build output (git‑ignored)
+├─ main.go                 # PocketBase entry
+├─ pb_data/                # SQLite DB
+├─ vite.config.ts          # root=‘frontend’, outDir=‘dist’
+└─ Dockerfile, systemd unit, etc.
 ```
-
-## 🗄️ Database Management
-### Local Development
-When making changes to the database:
-1. Always make changes in your local PocketBase instance first
-2. PocketBase will automatically generate migration files in the `pb_migrations` directory
-3. Commit these migration files to your repository
-
-### Deployment
-- Migrations are automatically applied when the application starts
-- The deployment process will execute all pending migrations in order
-- Never modify the production database directly; always create migrations locally first
-
-## 🔧 About PocketBase
-[PocketBase](https://pocketbase.io) is an open source backend consisting of:
-- Embedded database (SQLite)
-- Built-in authentication
-- Real-time subscriptions
-- Dashboard UI
-- File storage
-- Convenient REST API
-
-Why PocketBase is great for this project:
-- Zero-dependency backend
-- Single binary deployment
-- Auto-generated API and admin UI
-- Built-in authentication and file storage
-- Great developer experience
-- Active community and regular updates
 
 ## 📦 Building for Production
 To create a production build:
 ```bash
-pnpm build
-```
+pnpm build          # vite build + go build -> ./pocket-react```
 
 This will create a single executable named `pocket-react` that contains your entire application. To run it:
 ```bash
 ./pocket-react serve
 ```
-
-## 🛠️ Development
-During development, you can run all services concurrently using:
+Artifacts:
 ```bash
-pnpm dev
+pocket-react        # single binary
+public/             # favicon etc.
 ```
 
-This will start:
-1. The PocketBase server
-2. The Vite development server
-3. Type generation in watch mode
 
-## Deployment to Fly.io
-[Follow this guide](https://github.com/pocketbase/pocketbase/discussions/537)
 
-## 📚 Additional Resources
-- [PocketBase Documentation](https://pocketbase.io/docs/)
-- [React Documentation](https://react.dev)
-- [Vite Documentation](https://vitejs.dev)
+## 🛠️ Server deploy (systemd + Nginx TLS)
+1.	rsync pocket-react public/ <server>:/opt/streamx
+2.	/etc/pocket-react.env
 
-## 📄 License
+```bash
+PB_ADDR=0.0.0.0:8080
+PB_ADMIN_EMAIL=admin@example.com
+PB_ADMIN_PASSWORD=***strong***
+```
+
+3. systemd unit:
+```bash
+[Service]
+User=streamxaio
+EnvironmentFile=/etc/pocket-react.env
+ExecStart=/opt/streamx/pocket-react serve
+```
+
+4. Nginx reverse‑proxy + certbot -d yourdomainhere.tld
+
+
+## Extending
+	•	PocketBase schema – add collections in the admin UI, they’re instantly served at /api/collections/<name>/records.
+	•	Dashboard widgets – drop new React components in frontend/src/admin/, add <Route> in main.tsx.
+	•	REST clients – external apps can consume the same API; CORS is enabled by default.
+
+## 📄 Acknowledgements and License
 MIT
+Forked from main branch of giacomorebonato/pocket-react
+PocketBase – embedded SQLite power.
+Material UI 6 – React components & icons.
+React Router 6 – client routing.
+Vite – dev & build tooling.
